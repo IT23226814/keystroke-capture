@@ -5,6 +5,14 @@
   "version": "0.1.0",
   "publisher": "research",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IT23226814/keystroke-capture"
+  },
+  "bugs": {
+    "url": "https://github.com/IT23226814/keystroke-capture/issues"
+  },
+  "homepage": "https://github.com/IT23226814/keystroke-capture#readme",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -101,10 +109,13 @@
     }
   },
   "scripts": {
-    "lint": "echo \"No build step: extension.js runs directly.\""
+    "lint": "echo \"No build step: extension.js runs directly.\"",
+    "package": "vsce package",
+    "install-local": "bash scripts/install-local.sh"
   },
   "devDependencies": {
     "@types/node": "^18.19.0",
-    "@types/vscode": "^1.75.0"
+    "@types/vscode": "^1.75.0",
+    "@vscode/vsce": "^3.2.1"
   }
 }

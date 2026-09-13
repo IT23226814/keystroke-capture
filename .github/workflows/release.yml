@@ -1,0 +1,36 @@
+name: Package and release VSIX
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Package extension
+        run: npx --yes @vscode/vsce package --out keystroke-capture.vsix
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: keystroke-capture-vsix
+          path: keystroke-capture.vsix
+
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: keystroke-capture.vsix
+          generate_release_notes: true

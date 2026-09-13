@@ -2,5 +2,8 @@
 .vscode-test/**
 .gitignore
 tools/**
+scripts/**
+.github/**
+.claude/**
 **/*.map
 node_modules/**

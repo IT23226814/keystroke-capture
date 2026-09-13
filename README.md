@@ -44,24 +44,53 @@ Set `keystrokeCapture.capturePolicy`:
 Use `categoryOnly` or `hashed` when your study only needs **timing**, or when
 recording other people's typing.
 
-## Install & run (development mode)
+## Install (easiest — no build tools needed)
 
-This extension is **plain JavaScript with no build step** — no `npm install` or
-compile needed. Open this folder in VS Code and press **F5** (or Run → "Run
-Extension"). A second VS Code window (the Extension Development Host) opens with
-the extension loaded.
+Every push of a `v*` tag builds a `.vsix` automatically and attaches it to the
+[GitHub Releases page](https://github.com/IT23226814/keystroke-capture/releases).
+Anyone can:
 
-> The `@types/*` entries in `package.json` are optional dev-time type hints for
-> editing `extension.js`. They are not required to run the extension.
+1. Download `keystroke-capture.vsix` from the latest release.
+2. In VS Code: Extensions panel → `...` menu → **Install from VSIX...** → pick
+   the file.
 
-To package a `.vsix` for installing normally:
+   Or from a terminal:
+
+   ```bash
+   code --install-extension keystroke-capture.vsix
+   ```
+
+No Node.js, no cloning, no build step required for this path.
+
+## Install from source
+
+If you have the repo but not a pre-built `.vsix`, one command packages and
+installs it into your local VS Code (uses `npx`, so no global install needed):
 
 ```bash
-npm install -g @vscode/vsce
-vsce package
+npm run install-local
+```
+
+This targets the `code` CLI by default; pass another editor's CLI name for a
+compatible fork, e.g. `./scripts/install-local.sh code-insiders`.
+
+To just produce the `.vsix` file without installing it:
+
+```bash
+npm run package
 ```
 
 Then in VS Code: Extensions panel → `...` → "Install from VSIX...".
+
+## Run in development mode
+
+This extension is **plain JavaScript with no build step** — no `npm install` or
+compile needed to iterate on it. Open this folder in VS Code and press **F5**
+(or Run → "Run Extension"). A second VS Code window (the Extension Development
+Host) opens with the extension loaded.
+
+> The `@types/*` entries in `package.json` are optional dev-time type hints for
+> editing `extension.js`. They are not required to run the extension.
 
 ## Usage
 
