@@ -1,0 +1,110 @@
+{
+  "name": "keystroke-capture",
+  "displayName": "Keystroke Capture (Research)",
+  "description": "Captures in-editor keystroke and edit events with high-resolution timing for typing-behavior research. Local storage only, no network.",
+  "version": "0.1.0",
+  "publisher": "research",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "keystroke",
+    "keystroke dynamics",
+    "typing",
+    "research",
+    "telemetry"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "keystrokeCapture.toggle",
+        "title": "Keystroke Capture: Start/Stop Recording"
+      },
+      {
+        "command": "keystrokeCapture.start",
+        "title": "Keystroke Capture: Start Recording"
+      },
+      {
+        "command": "keystrokeCapture.stop",
+        "title": "Keystroke Capture: Stop Recording"
+      },
+      {
+        "command": "keystrokeCapture.newSession",
+        "title": "Keystroke Capture: Start New Session"
+      },
+      {
+        "command": "keystrokeCapture.openDataFolder",
+        "title": "Keystroke Capture: Open Data Folder"
+      },
+      {
+        "command": "keystrokeCapture.showStats",
+        "title": "Keystroke Capture: Show Session Stats"
+      }
+    ],
+    "configuration": {
+      "title": "Keystroke Capture",
+      "properties": {
+        "keystrokeCapture.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Begin recording automatically when VS Code starts. When false, recording is off until you start it."
+        },
+        "keystrokeCapture.storagePath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute folder path for capture files. Leave empty to use the extension's global storage folder."
+        },
+        "keystrokeCapture.capturePolicy": {
+          "type": "string",
+          "enum": [
+            "full",
+            "categoryOnly",
+            "hashed"
+          ],
+          "enumDescriptions": [
+            "Record the actual character/text that was typed.",
+            "Record only the key category (letter, digit, whitespace, punctuation, control) — never the literal character.",
+            "Record a salted hash of each character — preserves repeat/n-gram structure without storing readable text."
+          ],
+          "default": "full",
+          "description": "How much of the typed content to record. Use 'categoryOnly' or 'hashed' when studying timing without needing readable content."
+        },
+        "keystrokeCapture.captureDocumentChanges": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record document edit events (insertions, deletions, paste, autocomplete, multi-cursor) in addition to raw keystrokes."
+        },
+        "keystrokeCapture.captureSelectionChanges": {
+          "type": "boolean",
+          "default": false,
+          "description": "Record cursor/selection movement events. Increases data volume substantially."
+        },
+        "keystrokeCapture.excludeFilePattern": {
+          "type": "string",
+          "default": "",
+          "description": "Glob-like substring; if a file path contains it, that file's events are not recorded (e.g. 'secret' or '.env')."
+        },
+        "keystrokeCapture.flushIntervalMs": {
+          "type": "number",
+          "default": 2000,
+          "description": "How often buffered events are written to disk, in milliseconds."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "echo \"No build step: extension.js runs directly.\""
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.75.0"
+  }
+}
